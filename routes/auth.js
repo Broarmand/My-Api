@@ -48,10 +48,18 @@ router.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({ token });
+        // ✅ Include user info in the response
+        res.json({
+            token,
+            user: {
+                username: user.username,
+                role: user.role
+            }
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
+  
 
 module.exports = router;
